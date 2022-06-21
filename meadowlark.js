@@ -1,30 +1,23 @@
 const express = require('express')
 const expressHandlebars = require('express-handlebars')
 const chalk = require('chalk')
-
-const fortunes = [
-    'Conquer your fears, or they conquer you',
-    'Rivers need sources',
-    'Dont be afraid of the unknown',
-    'A pleasant surprise awaits you'
-]
+const fortune = require('./lib/fortune')
 
 const app = express()
 
 const port = process.env.PORT || 3000
 
 app.engine('handlebars', expressHandlebars.engine({
-    defaultLayout: 'main',
+    defaultLayout: 'main',                              //TODO: Setup default layout as main
 }))
-app.set('view engine', 'handlebars')
+app.set('view engine', 'handlebars')        //TODO: Init Express Handlebars engine
 
-app.use(express.static(__dirname + '/public'))
+app.use(express.static(__dirname + '/public')) //TODO: Init static files
 
-app.get('/', (req, res) => res.render('home'))
+app.get('/', (req, res) => res.render('home')) 
 
 app.get('/about', (req, res) => {
-    const randomFortune = fortunes[Math.floor(Math.random() * fortunes.length)]
-    res.render('about', { fortune: randomFortune})
+    res.render('about', { fortune: fortune.getFortune() })
 })
 
 app.use((req, res) => {
