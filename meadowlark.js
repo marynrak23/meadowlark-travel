@@ -23,7 +23,12 @@ app.use(handlers.notFound)
 
 app.use(handlers.serverError)
 
-app.listen(port, () => console.log(
-    chalk.bgGreen( 'SUCCESS' ) + '\n' +
-    `Express start at PORT: ${port}`
-))
+if(require.main === module) {
+    app.listen(port, () => console.log(
+        chalk.bgGreen( 'SUCCESS' ) + '\n' +
+        `Express start at PORT: ${port}` + '\n' +
+        chalk.bgCyan('Directory ->') + ' ' + __dirname
+    ))
+} else {
+    module.exports = app
+}
