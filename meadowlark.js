@@ -3,13 +3,14 @@ const expressHandlebars = require('express-handlebars')
 const chalk = require('chalk')
 const fortune = require('./lib/fortune')
 const handlers = require('./lib/handlers')
+const cookieParser = require('cookie-parser')
 
 const bodyParser = require('body-parser')
 
 const app = express()
 
-
 app.use(bodyParser.urlencoded({ extended: true }))
+app.use(bodyParser.json())
 
 const port = process.env.PORT || 3000
 
@@ -34,9 +35,8 @@ app.get('/headers', (req, res) => {
     res.send('Headers info console')
 })
 
-app.get('/newsletter-signup', handlers.newsletterSignup)
-app.post('/newsletter-signup/process', handlers.newsletterSignupProcess)
-app.get('/newsletter-signup/thank-you', handlers.newsletterSignupThankYou)
+app.get('/newsletter', handlers.newsletter)
+app.post('/api/newsletter-signup', handlers.api.newsletterSignup)
 
 app.use(handlers.notFound)
 

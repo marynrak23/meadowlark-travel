@@ -3,3 +3,6 @@
 /.idea/
 /.eslintrc.js
 /codewars.js
+/.credentials.development.json
+/config.js
+/credentials.js
